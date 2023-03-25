@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign In</title>
+</head>
+<body>
+	<h1>Sign In</h1>
+	<form>
+		<label for="username">Username:</label>
+		<input type="text" id="username" name="username"><br><br>
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password"><br><br>
+		<input type="button" value="Submit" onclick="signIn()">
+	</form>
+	<div id="message"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		var sheetLink = https://docs.google.com/spreadsheets/d/e/2PACX-1vQms_bafwen2rNJ88Ohd1ZEde2yyIGVsIOFWYkW1Q8qA5zYz_-8hmJFxLUA-uAroHF3KUU1qPe8hBsq/pubhtml;
+		function signIn() {
+			var username = $('#username').val();
+			var password = $('#password').val();
+			$.get(sheetLink, function(data) {
+				var sheetData = $(data).find('table').eq(0);
+				var sheetUsername = sheetData.find('td:eq(0)').text();
+				var sheetPassword = sheetData.find('td:eq(1)').text();
+				if (username === sheetUsername && password === sheetPassword) {
+					window.location.href = "https://docs.google.com/spreadsheets/d/SPREADSHEET_ID";
+				} else {
+					$('#message').html("Invalid username or password");
+				}
+			});
+			return false;
+		}
+	</script>
+</body>
+</html>
